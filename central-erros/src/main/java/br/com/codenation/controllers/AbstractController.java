@@ -1,7 +1,7 @@
 package br.com.codenation.controllers;
 
 import br.com.codenation.dto.interfaces.IDTO;
-import br.com.codenation.mapper.interfaces.IMapper;
+import br.com.codenation.mapper.interfaces.EntityMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ import java.util.List;
 public abstract class AbstractController<MODEL extends IModel, K extends IDTO, ID> {
 
     private AbstractService<MODEL, ID> service;
-    private IMapper<MODEL, K> mapper;
+    private EntityMapper<MODEL, K> mapper;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

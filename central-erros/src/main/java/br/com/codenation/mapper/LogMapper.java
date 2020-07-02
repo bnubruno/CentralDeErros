@@ -1,16 +1,18 @@
 package br.com.codenation.mapper;
 
 import br.com.codenation.dto.LogDTO;
-import br.com.codenation.mapper.interfaces.IMapper;
+import br.com.codenation.mapper.interfaces.EntityMapper;
 import br.com.codenation.model.Error;
+import br.com.codenation.service.ApplicationService;
+import br.com.codenation.service.UserService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
-public abstract class LogMapper implements IMapper<Error, LogDTO> {
+@Mapper(componentModel = "spring", uses = { ApplicationService.class, UserService.class })
+public abstract class LogMapper implements EntityMapper<Error, LogDTO> {
 
     @Mappings({
             @Mapping(source = "id", target = "id"),
@@ -29,5 +31,19 @@ public abstract class LogMapper implements IMapper<Error, LogDTO> {
     public abstract LogDTO toDTO(Error source);
 
     public abstract List<LogDTO> toDTOs(List<Error> sources);
+
+    @Mappings({
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "title", target = "title"),
+            @Mapping(source = "details", target = "details"),
+            @Mapping(source = "applicationId", target = "application"),
+            @Mapping(source = "archived", target = "archived"),
+            @Mapping(source = "userId", target = "user"),
+            @Mapping(source = "level", target = "level"),
+            @Mapping(source = "environment", target = "environment")
+    })
+    public abstract Error toEntity(LogDTO source);
+
+    public abstract List<Error> toEntities(List<LogDTO> sources);
 
 }
