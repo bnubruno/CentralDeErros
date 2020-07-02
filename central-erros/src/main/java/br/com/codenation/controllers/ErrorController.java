@@ -1,34 +1,31 @@
 package br.com.codenation.controllers;
 
+import br.com.codenation.dto.LogDTO;
+import br.com.codenation.mapper.LogMapper;
+import br.com.codenation.model.Error;
+import br.com.codenation.service.ErrorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
-import br.com.codenation.model.Error;
-import br.com.codenation.service.ErrorService;
-
 @RestController
-@RequestMapping("/error")
-public class ErrorController extends AbstractController<Error, UUID>{
+@RequestMapping("/log")
+public class ErrorController extends AbstractController<Error, LogDTO, UUID>{
 
     private ErrorService errorService;
+    private LogMapper logMapper;
 
     @Autowired
-    public ErrorController(ErrorService errorService){
-        super(errorService);
+    public ErrorController(ErrorService errorService, LogMapper logMapper){
+        super(errorService, logMapper);
         this.errorService = errorService;
+        this.logMapper = logMapper;
     }
 
     @GetMapping("/filter")

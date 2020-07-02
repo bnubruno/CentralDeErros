@@ -1,5 +1,7 @@
 package br.com.codenation.controllers;
 
+import br.com.codenation.dto.interfaces.IDTO;
+import br.com.codenation.mapper.interfaces.IMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,30 +19,31 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @AllArgsConstructor
-public abstract class AbstractController<MODEL extends IModel, ID> {
+public abstract class AbstractController<MODEL extends IModel, K extends IDTO, ID> {
 
     private AbstractService<MODEL, ID> service;
+    private IMapper<MODEL, K> mapper;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Lista todas os models")
-    public List<MODEL> listAll() {
-        return service.findAll();
+    public List<K> listAll() {
+        return mapper.toDTOs(service.findAll());
     }
 
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Busca um registro no banco pelo id")
-    public MODEL getById(@PathVariable ID id){
-        return service.findById(id);
+    public K getById(@PathVariable ID id){
+        return mapper.toDTO(service.findById(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Adiciona um novo registro no banco")
-    public MODEL create(@RequestBody MODEL model){
-        return service.save(model);
+    public K create(@RequestBody MODEL model){
+        return mapper.toDTO(service.save(model));
     }
 
     @DeleteMapping("/{id}")
@@ -53,9 +56,9 @@ public abstract class AbstractController<MODEL extends IModel, ID> {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Atualiza um registro no banco pelo id")
-    public MODEL  update(@PathVariable ID id, @RequestBody MODEL model){
+    public K update(@PathVariable ID id, @RequestBody MODEL model){
         model.setId(id);
-        return service.update(model);
+        return mapper.toDTO(service.update(model));
     }
 
 }
