@@ -42,8 +42,8 @@ public abstract class AbstractController<MODEL extends IModel, K extends IDTO, I
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Adiciona um novo registro no banco")
-    public K create(@RequestBody MODEL model){
-        return mapper.toDTO(service.save(model));
+    public K create(@RequestBody K dto){
+        return mapper.toDTO(service.save(mapper.toEntity(dto)));
     }
 
     @DeleteMapping("/{id}")
@@ -56,7 +56,8 @@ public abstract class AbstractController<MODEL extends IModel, K extends IDTO, I
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Atualiza um registro no banco pelo id")
-    public K update(@PathVariable ID id, @RequestBody MODEL model){
+    public K update(@PathVariable ID id, @RequestBody K dto){
+        MODEL model = mapper.toEntity(dto);
         model.setId(id);
         return mapper.toDTO(service.update(model));
     }
