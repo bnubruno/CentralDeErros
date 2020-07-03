@@ -20,7 +20,7 @@ import br.com.codenation.model.Error;
 import br.com.codenation.service.ErrorService;
 
 @RestController
-@RequestMapping("/error")
+@RequestMapping("/log")
 public class ErrorController extends AbstractController<Error, UUID>{
 
     private ErrorService errorService;
