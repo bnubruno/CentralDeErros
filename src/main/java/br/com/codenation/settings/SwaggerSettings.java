@@ -26,33 +26,33 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerSettings {
 
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any()).build().apiInfo(metaInfo())
-				.securitySchemes(Arrays.asList(new ApiKey("Token Access", HttpHeaders.AUTHORIZATION, In.HEADER.name())))
-				.securityContexts(Arrays.asList(securityContext()));
-	}
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("br.com.codenation.controllers"))
+                .paths(PathSelectors.any()).build().apiInfo(metaInfo())
+                .securitySchemes(Arrays.asList(new ApiKey("Token Access", HttpHeaders.AUTHORIZATION, In.HEADER.name())))
+                .securityContexts(Arrays.asList(securityContext()));
+    }
 
-	private SecurityContext securityContext() {
-		return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.any()).build();
-	}
+    private SecurityContext securityContext() {
+        return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.any()).build();
+    }
 
-	List<SecurityReference> defaultAuth() {
-		AuthorizationScope authorizationScope = new AuthorizationScope("ADMIN", "accessEverything");
-		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-		authorizationScopes[0] = authorizationScope;
-		return Arrays.asList(new SecurityReference("Token Access", authorizationScopes));
-	}
+    List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("ADMIN", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return Arrays.asList(new SecurityReference("Token Access", authorizationScopes));
+    }
 
-	@SuppressWarnings("rawtypes")
-	private ApiInfo metaInfo() {
-		return new ApiInfo("Central de Erros - Codenation",
-				"Serviços para cadastrar logs de erro.", "1.0",
-				"Termos e Serviços 2020", new Contact("Gusttavo H. Funchal Pimenta",
-						"COLOCAR O LINK DA APLICAÇÃO EM PRODUÇÃO", "gusttavo.funchal@gmail.com"),
-				"DigiCert SHA2 Extended Validation Server CA", "https://www.digicert.com/",
-				new ArrayList<VendorExtension>());
-	}
+    @SuppressWarnings("rawtypes")
+    private ApiInfo metaInfo() {
+        return new ApiInfo("Central de Erros - Codenation",
+                "Serviços para cadastrar logs de erro.", "1.0",
+                "Termos e Serviços 2020", new Contact("Gusttavo H. Funchal Pimenta",
+                "COLOCAR O LINK DA APLICAÇÃO EM PRODUÇÃO", "gusttavo.funchal@gmail.com"),
+                "DigiCert SHA2 Extended Validation Server CA", "https://www.digicert.com/",
+                new ArrayList<VendorExtension>());
+    }
 
 }
