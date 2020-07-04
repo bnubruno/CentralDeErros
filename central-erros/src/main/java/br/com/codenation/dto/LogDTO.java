@@ -24,6 +24,7 @@ public class LogDTO implements IDTO {
     private UUID userId;
     private String userName;
     private String level;
+    private Long events;
     private String environment;
     private String createdAt;
     private String updatedAt;

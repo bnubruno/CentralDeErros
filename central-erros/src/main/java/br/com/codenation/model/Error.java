@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.GenericGenerator;
 
 import br.com.codenation.commons.EnvironmentEnum;
@@ -55,5 +56,15 @@ public class Error extends AbstractAuditingEntity implements IModel<UUID> {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private EnvironmentEnum environment;
+
+	@Formula("(SELECT count(1) " +
+			"FROM log l "+
+			"JOIN application a " +
+			"ON l.application_id = a.id " +
+			"WHERE l.archived = false " +
+			"AND l.level = level " +
+			"AND l.environment = environment " +
+			"AND l.title = title)")
+	private Long events;
 
 }

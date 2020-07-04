@@ -24,6 +24,7 @@ public abstract class LogMapper implements EntityMapper<Error, LogDTO> {
             @Mapping(source = "user.id", target = "userId"),
             @Mapping(source = "user.name", target = "userName"),
             @Mapping(source = "level", target = "level"),
+            @Mapping(source = "events", target = "events"),
             @Mapping(source = "environment", target = "environment"),
             @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm"),
             @Mapping(source = "updatedAt", target = "updatedAt", dateFormat = "yyyy-MM-dd HH:mm")
@@ -40,6 +41,7 @@ public abstract class LogMapper implements EntityMapper<Error, LogDTO> {
             @Mapping(source = "archived", target = "archived"),
             @Mapping(source = "userId", target = "user"),
             @Mapping(source = "level", target = "level"),
+            @Mapping(source = "events", target = "events"),
             @Mapping(source = "environment", target = "environment")
     })
     public abstract Error toEntity(LogDTO source);
