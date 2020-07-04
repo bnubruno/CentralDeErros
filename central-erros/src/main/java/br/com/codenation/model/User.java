@@ -3,10 +3,7 @@ package br.com.codenation.model;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -46,7 +43,7 @@ public class User extends AbstractAuditingEntity implements IModel<UUID> {
 
 	private String token;
 
-	@Builder.Default
+	@Column(columnDefinition = "boolean default true")
 	private Boolean active = true;
 
 	@JsonIgnore
