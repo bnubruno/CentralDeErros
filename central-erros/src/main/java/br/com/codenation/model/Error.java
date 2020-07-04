@@ -42,6 +42,7 @@ public class Error extends AbstractAuditingEntity implements IModel<UUID> {
 	@ManyToOne
 	private Application application;
 
+	@Column(columnDefinition = "boolean default false")
 	private Boolean archived = false;
 
 	@ManyToOne
