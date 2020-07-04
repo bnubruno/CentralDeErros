@@ -3,12 +3,7 @@ package br.com.codenation.model;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -26,6 +21,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "log")
+@Table(indexes = {@Index(name = "idx_title", columnList = "title"),
+		@Index(name = "idx_archived", columnList = "archived"),
+		@Index(name = "idx_level", columnList = "level"),
+		@Index(name = "idx_environment", columnList = "environment")})
 public class Error extends AbstractAuditingEntity implements IModel<UUID> {
 
 	@Id
@@ -43,7 +42,6 @@ public class Error extends AbstractAuditingEntity implements IModel<UUID> {
 	@ManyToOne
 	private Application application;
 
-	@Builder.Default
 	private Boolean archived = false;
 
 	@ManyToOne
