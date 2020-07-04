@@ -1,5 +1,7 @@
 package br.com.codenation.controllers;
 
+import br.com.codenation.dto.ApplicationDTO;
+import br.com.codenation.mapper.ApplicationMapper;
 import br.com.codenation.model.Application;
 import br.com.codenation.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +12,16 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/application")
-public class ApplicationController extends AbstractController<Application, UUID> {
+public class ApplicationController extends AbstractController<Application, ApplicationDTO, UUID> {
 
     private ApplicationService applicationService;
+    private ApplicationMapper applicationMapper;
 
     @Autowired
-    public ApplicationController(ApplicationService service) {
-        super(service);
+    public ApplicationController(ApplicationService service, ApplicationMapper applicationMapper) {
+        super(service, applicationMapper);
         this.applicationService = service;
+        this.applicationMapper = applicationMapper;
     }
+
 }

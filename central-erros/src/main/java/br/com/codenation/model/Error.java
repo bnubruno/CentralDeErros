@@ -3,13 +3,19 @@ package br.com.codenation.model;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
-import br.com.codenation.model.interfaces.IModel;
 import org.hibernate.annotations.GenericGenerator;
 
 import br.com.codenation.commons.EnvironmentEnum;
 import br.com.codenation.commons.LevelEnum;
+import br.com.codenation.model.interfaces.IModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,30 +25,36 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "error")
-public class Error implements IModel<UUID> {
+@Entity(name = "log")
+public class Error extends AbstractAuditingEntity implements IModel<UUID> {
 
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    private UUID id;
+	@Id
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	private UUID id;
 
-    private String title;
+	@NotNull
+	private String title;
 
-    private String details;
+	@NotNull
+	private String details;
 
-    private Integer number;
+	@NotNull
+	@ManyToOne
+	private Application application;
 
-    private String origin;
+	@Builder.Default
+	private Boolean archived = false;
 
-    @Enumerated(EnumType.STRING)
-    private LevelEnum level;
+	@ManyToOne
+	private User user;
 
-    private Date date;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private LevelEnum level;
 
-    @Enumerated(EnumType.STRING)
-    private EnvironmentEnum environment;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private EnvironmentEnum environment;
 
-    @ManyToOne
-    private User user;
 }
