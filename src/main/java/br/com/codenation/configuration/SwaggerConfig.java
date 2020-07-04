@@ -1,4 +1,4 @@
-package br.com.codenation.settings;
+package br.com.codenation.configuration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerSettings {
+public class SwaggerConfig {
+
+    public static final String TITLE = "Central de Erros - Codenation";
+    public static final String DESCRIPTION = "Serviços para cadastrar logs de erro.";
+    public static final String TERMS = "Termos e Serviços 2020";
+    public static final String URL = "COLOCAR O LINK DA APLICAÇÃO EM PRODUÇÃO";
+    public static final String LICENSE = "DigiCert SHA2 Extended Validation Server CA";
+    public static final String EMAIL = "gusttavo.funchal@gmail.com";
+    public static final String LICENSE_URL = "https://www.digicert.com/";
+    public static final String CONTACT_NAME = "Gusttavo H. Funchal Pimenta";
 
     @Bean
     public Docket api() {
@@ -47,11 +56,10 @@ public class SwaggerSettings {
 
     @SuppressWarnings("rawtypes")
     private ApiInfo metaInfo() {
-        return new ApiInfo("Central de Erros - Codenation",
-                "Serviços para cadastrar logs de erro.", "1.0",
-                "Termos e Serviços 2020", new Contact("Gusttavo H. Funchal Pimenta",
-                "COLOCAR O LINK DA APLICAÇÃO EM PRODUÇÃO", "gusttavo.funchal@gmail.com"),
-                "DigiCert SHA2 Extended Validation Server CA", "https://www.digicert.com/",
+        return new ApiInfo(TITLE,
+                DESCRIPTION, "1.0",
+                TERMS, new Contact(CONTACT_NAME, URL, EMAIL),
+                LICENSE, LICENSE_URL,
                 new ArrayList<VendorExtension>());
     }
 

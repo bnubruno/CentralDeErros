@@ -14,26 +14,22 @@ import br.com.codenation.model.User;
 import br.com.codenation.repositories.UserRepository;
 
 @Service
-public class UserService extends AbstractService<User, UUID> {
-
-
-    private UserRepository userRepository;
+public class UserService extends AbstractService<UserRepository, User, UUID> {
 
     @Autowired
-    public UserService(UserRepository userRepository){
-        super(userRepository);
-        this.userRepository = userRepository;
+    public UserService(UserRepository repository) {
+        super(repository);
     }
 
-    public void delete(UUID id){
-        Optional<User> user = userRepository.findById(id);
-        if(user.isPresent()){
+    public void delete(UUID id) {
+        Optional<User> user = repository.findById(id);
+        if (user.isPresent()) {
             user.get().setActive(false);
             save(user.get());
         }
     }
 
     public List<User> findWithFilters(Map<Class<?>, Class<?>> params) {
-    	return userRepository.findAll(filterRecords(params));
+        return repository.findAll(filterRecords(params));
     }
 }

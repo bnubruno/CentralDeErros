@@ -11,8 +11,8 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = { ApplicationService.class, UserService.class })
-public abstract class LogMapper implements EntityMapper<Error, LogDTO> {
+@Mapper(componentModel = "spring", uses = {ApplicationService.class, UserService.class})
+public interface LogMapper extends EntityMapper<Error, LogDTO> {
 
     @Mappings({
             @Mapping(source = "id", target = "id"),
@@ -29,9 +29,9 @@ public abstract class LogMapper implements EntityMapper<Error, LogDTO> {
             @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm"),
             @Mapping(source = "updatedAt", target = "updatedAt", dateFormat = "yyyy-MM-dd HH:mm")
     })
-    public abstract LogDTO toDTO(Error source);
+    LogDTO toDTO(Error source);
 
-    public abstract List<LogDTO> toDTOs(List<Error> sources);
+    List<LogDTO> toDTOs(List<Error> sources);
 
     @Mappings({
             @Mapping(source = "id", target = "id"),
@@ -44,8 +44,8 @@ public abstract class LogMapper implements EntityMapper<Error, LogDTO> {
             @Mapping(source = "events", target = "events"),
             @Mapping(source = "environment", target = "environment")
     })
-    public abstract Error toEntity(LogDTO source);
+    Error toEntity(LogDTO source);
 
-    public abstract List<Error> toEntities(List<LogDTO> sources);
+    List<Error> toEntities(List<LogDTO> sources);
 
 }

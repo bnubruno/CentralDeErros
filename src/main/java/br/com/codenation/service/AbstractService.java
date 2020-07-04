@@ -6,64 +6,64 @@ import java.util.Optional;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.codenation.model.interfaces.IModel;
+import br.com.codenation.model.interfaces.BaseEntity;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public abstract class AbstractService<MODEL extends IModel, ID> {
+public abstract class AbstractService<R extends JpaRepository<E, ID>, E extends BaseEntity, ID> {
 
-    private final JpaRepository<MODEL, ID> repository;
+    protected final R repository;
 
-    public MODEL save(MODEL model){
+    public E save(E model) {
         return repository.save(model);
     }
 
-    public List<MODEL> saveAll(List<MODEL> models){
+    public List<E> saveAll(List<E> models) {
         return repository.saveAll(models);
     }
 
-    public MODEL update(MODEL model) {
+    public E update(E model) {
         return repository.save(model);
     }
 
-    public MODEL findById(ID id) {
-        Optional<MODEL> model = repository.findById(id);
-        if(model.isPresent()){
+    public E findById(ID id) {
+        Optional<E> model = repository.findById(id);
+        if (model.isPresent()) {
             return model.get();
         }
         return null;
     }
 
-    public List<MODEL> findAll(){
+    public List<E> findAll() {
         return repository.findAll();
     }
 
-    public void delete(ID id){
+    public void delete(ID id) {
         repository.deleteById(id);
 
     }
 
-    public List<MODEL> findAll(Sort sort){
+    public List<E> findAll(Sort sort) {
         return repository.findAll(sort);
     }
 
-    public List<MODEL> findAllById(Iterable<ID> ids){
+    public List<E> findAllById(Iterable<ID> ids) {
         return repository.findAllById(ids);
     }
 
-    public List<MODEL> saveAll(Iterable<MODEL> models){
+    public List<E> saveAll(Iterable<E> models) {
         return repository.saveAll(models);
     }
 
-    public void flush(){
+    public void flush() {
         repository.flush();
     }
 
-    public MODEL saveAndFlush(MODEL model){
+    public E saveAndFlush(E model) {
         return repository.saveAndFlush(model);
     }
 
-    public void deleteInBatch(Iterable<MODEL> models){
+    public void deleteInBatch(Iterable<E> models) {
         repository.deleteInBatch(models);
     }
 

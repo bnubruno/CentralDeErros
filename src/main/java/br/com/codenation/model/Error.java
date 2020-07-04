@@ -1,6 +1,5 @@
 package br.com.codenation.model;
 
-import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.*;
@@ -11,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import br.com.codenation.commons.EnvironmentEnum;
 import br.com.codenation.commons.LevelEnum;
-import br.com.codenation.model.interfaces.IModel;
+import br.com.codenation.model.interfaces.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +25,7 @@ import lombok.NoArgsConstructor;
 		@Index(name = "idx_archived", columnList = "archived"),
 		@Index(name = "idx_level", columnList = "level"),
 		@Index(name = "idx_environment", columnList = "environment")})
-public class Error extends AbstractAuditingEntity implements IModel<UUID> {
+public class Error extends AbstractAuditingEntity implements BaseEntity<UUID> {
 
 	@Id
 	@GeneratedValue(generator = "uuid2")

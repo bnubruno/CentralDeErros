@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.codenation.model.interfaces.IModel;
+import br.com.codenation.model.interfaces.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
-public class User extends AbstractAuditingEntity implements IModel<UUID> {
+public class User extends AbstractAuditingEntity implements BaseEntity<UUID> {
 
 	@Id
 	@GeneratedValue(generator = "uuid2")

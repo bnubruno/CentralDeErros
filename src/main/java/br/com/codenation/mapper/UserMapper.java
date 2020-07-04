@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public abstract class UserMapper implements EntityMapper<User, UserDTO> {
+public interface UserMapper extends EntityMapper<User, UserDTO> {
 
     @Mappings({
             @Mapping(source = "id", target = "id"),
@@ -21,9 +21,9 @@ public abstract class UserMapper implements EntityMapper<User, UserDTO> {
             @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm"),
             @Mapping(source = "updatedAt", target = "updatedAt", dateFormat = "yyyy-MM-dd HH:mm")
     })
-    public abstract UserDTO toDTO(User user);
+    UserDTO toDTO(User user);
 
-    public abstract List<UserDTO> toDTOs(List<User> sources);
+    List<UserDTO> toDTOs(List<User> sources);
 
     @Mappings({
             @Mapping(source = "id", target = "id"),
@@ -32,7 +32,7 @@ public abstract class UserMapper implements EntityMapper<User, UserDTO> {
             @Mapping(source = "token", target = "token"),
             @Mapping(source = "active", target = "active")
     })
-    public abstract User toEntity(UserDTO source);
+    User toEntity(UserDTO source);
 
-    public abstract List<User> toEntities(List<UserDTO> sources);
+    List<User> toEntities(List<UserDTO> sources);
 }

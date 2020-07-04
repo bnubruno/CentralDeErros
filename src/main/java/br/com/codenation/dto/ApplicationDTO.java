@@ -1,6 +1,6 @@
 package br.com.codenation.dto;
 
-import br.com.codenation.dto.interfaces.IDTO;
+import br.com.codenation.dto.interfaces.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicationDTO implements IDTO {
+public class ApplicationDTO implements DTO {
 
     private UUID id;
     private String name;

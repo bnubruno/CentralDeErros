@@ -15,18 +15,15 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
-public class ErrorService extends AbstractService<Error, UUID> {
-
-    private ErrorRepository errorRepository;
+public class ErrorService extends AbstractService<ErrorRepository, Error, UUID> {
 
     @Autowired
-    public ErrorService(ErrorRepository errorRepository){
-        super(errorRepository);
-        this.errorRepository = errorRepository;
+    public ErrorService(ErrorRepository repository) {
+        super(repository);
     }
 
     public List<Error> findWithFilters(Map<Class<?>, Class<?>> params, Pageable pageable) {
-    	Page<Error> pageData = errorRepository.findAll(addFilters(params), pageable);
-    	return pageData.getContent();
+        Page<Error> pageData = repository.findAll(addFilters(params), pageable);
+        return pageData.getContent();
     }
 }

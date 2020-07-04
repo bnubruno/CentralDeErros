@@ -12,17 +12,14 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
-public class ApplicationService extends AbstractService<Application, UUID> {
-
-    private ApplicationRepository applicationRepository;
+public class ApplicationService extends AbstractService<ApplicationRepository, Application, UUID> {
 
     @Autowired
-    public ApplicationService(ApplicationRepository applicationRepository) {
-        super(applicationRepository);
-        this.applicationRepository = applicationRepository;
+    public ApplicationService(ApplicationRepository repository) {
+        super(repository);
     }
 
     public List<Application> findWithFilters(Map<Class<?>, Class<?>> params) {
-    	return applicationRepository.findAll(filterRecords(params));
+        return repository.findAll(filterRecords(params));
     }
 }

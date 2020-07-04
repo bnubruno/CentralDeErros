@@ -1,6 +1,6 @@
 package br.com.codenation.model.interfaces;
 
-public interface IModel<ID> {
+public interface BaseEntity<ID> {
     ID getId();
     void setId(ID id);
 }
